@@ -3,7 +3,9 @@ using UnityEngine;
 public class Terminal : MonoBehaviour, IInteractable
 {
     public GameObject[] targets;
-    public bool _isPoweredUp;
+    public bool _isActivated;
+
+    public int terminalFloorIndex;
 
     public void Interact()
     {
@@ -13,13 +15,19 @@ public class Terminal : MonoBehaviour, IInteractable
             {
                 //interactable.Interact();
                 Debug.Log(target.name + " is now powered up");
-                interactable.Activate(_isPoweredUp);
+
+                interactable.Activate(_isActivated);
+
+                if(target.TryGetComponent<Elevator>(out Elevator elevator))
+                {
+                    elevator.ChooseFloor(terminalFloorIndex);
+                }
             }
         }
     }
 
     public void Activate(bool isActivated)
     {
-
+        this._isActivated = isActivated;
     }
 }

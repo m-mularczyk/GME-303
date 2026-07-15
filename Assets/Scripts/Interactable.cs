@@ -1,3 +1,4 @@
+using StarterAssets;
 using UnityEngine;
 
 public class Interactable : MonoBehaviour
@@ -7,8 +8,12 @@ public class Interactable : MonoBehaviour
     private IInteractable _iinteractable;
     private bool _isInteractable;
 
+    private StarterAssetsInputs _starterAssetsInputs;
+
     private void Awake()
     {
+        _starterAssetsInputs = GameObject.FindWithTag("Player").GetComponent<StarterAssetsInputs>();
+
         if( _uiContainer != null )
         _uiContainer.SetActive(false);
 
@@ -21,7 +26,7 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
-        if (_isInteractable && Input.GetKeyDown(KeyCode.E))
+        if (_isInteractable && _starterAssetsInputs.interact)
         {
             _iinteractable.Interact();
         }
